@@ -1,0 +1,128 @@
+.div{
+    display: block;
+}  
+#loading{
+    flex: initial;
+    background-color: royalblue;
+    min-width:  100%;
+    min-height: 100%;
+    /*align-items: center;*/
+    opacity: 0.3;
+    position: fixed;
+    z-index: 2;
+
+
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+} 
+
+
+#loading img{
+    margin-left:25%;
+} 
+
+#form{
+    width: 50%;
+    left: 25%;
+    top: 10%;
+    position: fixed;
+    /*flex-wrap: wrap;*/
+    background-color: rgb(236, 218, 218);    
+    z-index: 2;
+    border-radius: 2px;
+}
+
+.txt{
+    width:80%;
+    padding: 12px 20px;
+    margin:8px; 
+    box-sizing: border-box; /*Crecio demasiado con los 2 de arriba, lo acomoda*/
+    border: solid 1px #dddddd;
+}
+
+.txtSex{
+    padding: 12px 20px;
+    margin:8px; 
+}
+
+.moverBtn{
+    display: flex;
+    justify-content: space-around;
+}
+
+.classError{
+    width:80%;
+    padding: 12px 20px;
+    margin:8px; 
+    box-sizing: border-box;
+    border: solid 3px red;
+}
+
+.button{
+    color:white; 
+    cursor: pointer; 
+    margin:12px 12px 12px 12px;
+    padding: 12px;  
+}
+
+#btnGuardar{
+    background-color:blue;  
+}
+
+#btnModificar, #btnAgregar{
+    background-color: green;  
+}
+
+#btnCerrar{
+    background-color: red;
+}
+
+#btnCerrar:hover , #btnEliminar:hover{
+    background-color: rgb(250, 136, 91);
+}
+
+#btnModificar:hover{
+    background-color: rgb(235, 252, 80);
+}
+
+#btnGuardar:hover{
+    background-color: rgb(104, 85, 212);
+}
+
+#lblDatos, .txt{
+    margin:10px 10px 10px 10px;
+    padding: 8px;
+}
+
+#table {
+    position: relative;
+    z-index: 1; 
+    width: 100%;
+    border-collapse: collapse;
+    font-weight: normal;
+    font-size: 25px;
+
+    /*border: 2px solid black;*/
+}
+
+#table th,td{
+    border: 1px solid #ddd; /* ver de cambiarlo por solo borde derecho*/
+    padding: 8px;
+    padding-top: 8px;    
+    padding-bottom: 8px;
+    text-align: center; /* Si no pongo esto, queda alineado a la izq*/
+}
+
+#table tr:nth-child(even){
+    background-color:#ddd;
+}
+
+#table tbody{
+   /* text-align: center; */
+    color: white;
+    background-color: rgb(21, 117, 124);
+}

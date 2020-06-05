@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperatorio Primer Parcial</title>
+    <script type="text/javascript" src="JS/funciones.js"></script>
+    <link rel="stylesheet" href="CSS/hoja.css"/>
+</head>
+<body>
+    <div id="container">    
+        <div id="loading">
+            <img id="imagen" src="IMG/images.gif">
+        </div>
+        <div>
+            <input type="button" class="button" id="btnAgregar" value="Agregar">
+        </div>
+        <div id="form">
+            <div> Alta de un Auto
+                <input type="button" class="button" id="btnCerrar" value="X">
+            </div>
+            <div id="datos">
+                <label id="lblDatos">Marca</label>
+                <br>
+                <input type="text" class="txt" id="nombre" placeholder="Marca..">
+            </div>
+            <div id="datos">
+                <label id="lblDatos">Modelo</label>
+                <br>
+                <input type="text" class="txt" id="nombre" placeholder="Modelo..">
+            </div>
+            <div>
+                <label id="lblDatos">Año</label>  
+                <br>             
+                <select class="select" id="año" >
+                <option value="2000">2000</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+                <option value="2003">2003</option>
+                <option value="2004">2004</option>
+                <option value="2005">2005</option>
+                <option value="2006">2006</option>
+                <option value="2007">2007</option>
+                <option value="2008">2008</option>
+                <option value="2009">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>               
+                </select>
+            </div>
+            <div class="moverBtn">
+                <div>
+                <input type="button" class="button" id="btnGuardar" value="Guardar">
+                </div>
+                <div id="divModificar">
+                <input type="button" class="button" id="btnModificar" value="Modificar">
+                </div>
+            </div>
+        </div>
+        <div id="divtable">
+            <h1>Lista de autos</h3>
+            <table id="table">
+                <tr>
+                    <td>Marca</td>
+                    <td>Modelo</td>
+                    <td>Año</td>
+                </tr>
+            </table>
+
+        </div>
+        
+            
+        
+    </div>
+</body>
+</html>
