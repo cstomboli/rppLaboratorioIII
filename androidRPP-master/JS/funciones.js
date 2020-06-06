@@ -3,8 +3,6 @@ var loading;
 var contenedor;
 var trPadre;
 var idObtenido;
-var fechaActual = new Date();
-
 
 window.onload = function()
 {
@@ -21,22 +19,25 @@ window.onload = function()
         contenedor.hidden = true;
     }
 
+
     var btnAgregar = document.getElementById("btnAgregar");
     btnAgregar.onclick = function()
     {
         contenedor.hidden = false;
     }
 
-    
-
-    var btnModificar = document.getElementById("btnModificar");
-    btnModificar.onclick = function()
+    var btnGuardar = document.getElementById("btnGuardar");
+    btnGuardar.onclick = function()
     {
         if(chequearDatos())
         {
-            peticion('POST', "http://localhost:3000/editar", callbackEditar);
+            peticion('POST', "http://localhost:3000/nuevoAuto", callbackAgregar);
         }
     }
+    
+
+    
+
 
 }
 
@@ -60,26 +61,12 @@ function peticion(metodo, url, funcion)
             {
                 data = {id:idObtenido};
             }
-            else if(url == "http://localhost:3000/editar")
+            else if(url == "http://localhost:3000/nuevoAuto")
             {
-                if(document.getElementById("turMa").value)
-                {
-                    data = {"id":idObtenido,"nombre":document.getElementById("nombre").value,
-                    "cuatrimestre":document.getElementById("cuatrimestre").value,
-                    "fechaFinal":document.getElementById("fecha").value,
-                    "turno":document.getElementById("turMa").value};
-            
-                }
-                else if ( document.getElementById("turNo").value)
-                {
-                    data = {"id":idObtenido,"nombre":document.getElementById("nombre").value,
-                    "cuatrimestre":document.getElementById("cuatrimestre").value,
-                    "fechaFinal":document.getElementById("fecha").value,
-                    "turno":document.getElementById("turNo").value};
-
-                }
+                data = {"id": idObtenido, "make":document.getElementById("marca").value,
+                 "model": document.getElementById("modelo").value,  
+                 "year": document.getElementById("año").value};
             }
-
             http.send(JSON.stringify(data)); 
         }
     }
@@ -93,21 +80,65 @@ function callback()
         loading.hidden = true;
     }
 }
-function callbackEliminar()
+
+function callbackAgregar()
 {
     if(http.status == 200 && http.readyState ==4)
     {
-        if( (JSON.parse(http.responseText)).type == "ok" )
-        {
-            trPadre.remove();
-        } 
-        else
-        {
-            alert("No se ha podido eliminar.");
-        } 
+        agregar (JSON.parse(http.responseText));
         loading.hidden = true;
     }
 }
+
+function agregar(auto)
+{
+    var tabla = document.getElementById("table");
+    
+        var tr= document.createElement("tr");
+        
+        var tdId= document.createElement("td");
+        var txt=document.createTextNode(auto.id);
+        tdId.appendChild(txt);
+        tr.appendChild(tdId);
+        tdId.hidden=true;
+       
+        var tdNa= document.createElement("td");
+        var txt=document.createTextNode(auto.make);
+        //console.log(txt);
+        tdNa.appendChild(txt);
+        tr.appendChild(tdNa);
+
+        var tdAp= document.createElement("td");
+        var txt=document.createTextNode(auto.model);
+        tdAp.appendChild(txt);
+        tr.appendChild(tdAp);
+
+        var tdAño = document.createElement("td");
+        var select = document.createElement("select");        
+        tdAño.appendChild(select);
+        for (var j = 1967; j<=2020; j++)
+        {
+            var opcion = document.createElement("option");
+            opcion.text =j;
+            select.add(opcion);
+            
+            if (opcion.text == auto.year)
+            {
+                opcion.selected=true;
+            }
+        }        
+        tr.appendChild(tdAño);
+        select.addEventListener("change", cambioAño);
+
+
+
+        tabla.appendChild(tr);   
+
+}
+
+
+
+
 
 function callbackEditar()
 {
@@ -149,33 +180,33 @@ function cargarGrilla(materias)
         var text = document.createTextNode(materias[i].model);
         td.appendChild(text);
         tr.appendChild(td);
-         
-        var td= document.createElement("td");
-        var x = document.createElement("select");
-        //td.appendChild(x);
-        x.options[0]=materias[i].year;
 
-        //var opcion = document.createElement("option");
-        //opcion.text = materias[i].year;
-       // x.options[0] = materias[i].year; //Esto
-      // x.selected= option;
-      //  option.text;
-        x.value=materias[i].year;
-       // var text = document.createTextNode(materias[i].year);
-        td.appendChild(x);
-        tr.appendChild(td);
+        var tdAño = document.createElement("td");
+        var select = document.createElement("select");
         
-     
+        tdAño.appendChild(select);
+        for (var j = 1967; j<=2020; j++)
+        {
+            var opcion = document.createElement("option");
+            opcion.text =j;
+            select.add(opcion);
+            
+            if (opcion.text == materias[i].year)
+            {
+                opcion.selected=true;
+            }
+        }
+        
+        tr.appendChild(tdAño);
 
-        td.addEventListener("onchange", cambioAño);
-       // tr.addEventListener("dblclick", clickGrilla);
-
+        select.addEventListener("change", cambioAño);
         tabla.appendChild(tr);
     }
 }
 
 function cambioAño()
 {
+    contenedor.hidden = false;
 
 }
 
@@ -232,18 +263,25 @@ function clickGrilla(click)
 
 function chequearDatos()
 {
-    var nombre= document.getElementById("nombre").value;
-    var fecha = document.getElementById("fecha");
+    var marca= document.getElementById("marca").value;
+    var modelo = document.getElementById("modelo").value;
     var retorno =false;
-    if(nombre.length>6) 
+    if(marca.length>3) 
     {
-        retorno=true;
-                
+        if(modelo.length>3)
+        {
+            retorno=true;
+        }
+        else
+        {
+            alert("El nombre del modelo debe tener mas de 3 letras"); 
+            document.getElementById("modelo").className ="classError";
+        }                  
     }
     else
     {
-        alert("El nombre de la materia debe tener mas de 6 letras"); 
-        document.getElementById("nombre").className ="classError";
+        alert("El nombre de la marca debe tener mas de 3 letras"); 
+        document.getElementById("marca").className ="classError";
     }
     return retorno;
 }

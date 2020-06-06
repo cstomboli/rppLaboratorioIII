@@ -12,22 +12,29 @@
         <div id="loading">
             <img id="imagen" src="IMG/images.gif">
         </div>
-        <div>
-            <input type="button" class="button" id="btnAgregar" value="Agregar">
+        <div id="datos">
+            <div>
+                <label id="lblList"><h1>Lista de autos</h1></label>
+            </div>
+            <div>            
+                <input type="button" class="button" id="btnAgregar" value="Agregar">
+            </div>
         </div>
         <div id="form">
-            <div> Alta de un Auto
+            <div> 
+                <label id="lblDatos">Alta de un Auto</label>
+
                 <input type="button" class="button" id="btnCerrar" value="X">
             </div>
             <div id="datos">
                 <label id="lblDatos">Marca</label>
                 <br>
-                <input type="text" class="txt" id="nombre" placeholder="Marca..">
+                <input type="text" class="txt" id="marca" placeholder="Marca..">
             </div>
             <div id="datos">
                 <label id="lblDatos">Modelo</label>
                 <br>
-                <input type="text" class="txt" id="nombre" placeholder="Modelo..">
+                <input type="text" class="txt" id="modelo" placeholder="Modelo..">
             </div>
             <div>
                 <label id="lblDatos">Año</label>  
@@ -60,13 +67,10 @@
                 <div>
                 <input type="button" class="button" id="btnGuardar" value="Guardar">
                 </div>
-                <div id="divModificar">
-                <input type="button" class="button" id="btnModificar" value="Modificar">
-                </div>
             </div>
         </div>
         <div id="divtable">
-            <h1>Lista de autos</h3>
+            
             <table id="table">
                 <tr>
                     <td>Marca</td>

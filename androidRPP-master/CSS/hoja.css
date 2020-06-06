@@ -126,3 +126,18 @@ body {
     color: white;
     background-color: rgb(21, 117, 124);
 }
+
+#año{
+    color: aqua;
+    padding: 12px;
+}
+
+#datos{
+    display: flex;
+}
+
+#btnAgregar{
+    justify-content: flex-end;
+    
+}
+
