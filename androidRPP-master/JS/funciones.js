@@ -205,8 +205,8 @@ function cambioAño(click)
 {
     contenedor.hidden = false;
     td = click.target.parentNode;
+    console.log(td);
     trPadre = td.parentElement;
-
     var hijo = trPadre.childNodes;
 
     idObtenido = hijo[0].textContent;
