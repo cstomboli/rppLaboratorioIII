@@ -136,7 +136,7 @@ function callbackModificar()
     {
         if((JSON.parse(http.responseText)).type == "ok" )
         {
-            modificar();
+            modificar(); //si regarcas la pagina esta modificado!!
         } 
         else
         {
@@ -198,7 +198,10 @@ function modificar()
     var hijo = trPadre.childNodes;
     hijo[1].textContent = document.getElementById("marca").value;
     hijo[2].textContent = document.getElementById("modelo").value;
-    hijo[3].textContent = document.getElementById("año").value;
+    hijo[3].typeselect = document.getElementById("año").value;
+
+    
+
 }
 
 function cambioAño(click)
@@ -212,8 +215,34 @@ function cambioAño(click)
     idObtenido = hijo[0].textContent;
     document.getElementById("marca").value = hijo[1].textContent;
     document.getElementById("modelo").value =hijo[2].textContent; 
-    document.getElementById("año").value=hijo[3].textContent;
-       
+    document.getElementById("año").value= hijo[3].textContent;
+
+    /*
+    console.log((hijo[3].click));
+    for (var j = 1967; j<=2020; j++)
+        {
+            var opcion = document.createElement("option");
+            opcion.text =j;
+            select.add(opcion);
+            opcion.addEventListener('click',tocoAño())
+            if (opcion.text == materias[i].year)
+            {
+                opcion.selected=true;
+            }
+        }
+    document.getElementById("año").value= esteAño; */      
+
+}
+
+function tocoAño (click)
+{
+
+    td = click.target.parentNode;
+    console.log(td);
+    trPadre = td.parentElement;
+    var hijo = trPadre.childNodes;
+
+
 }
 
 function chequearDatos()
