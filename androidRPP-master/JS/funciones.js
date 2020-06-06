@@ -9,7 +9,6 @@ window.onload = function()
     loading = document.getElementById("loading");
     contenedor = document.getElementById("form");
     contenedor.hidden=true;
-    //loading.hidden=true;
 
     peticion('GET', "http://localhost:3000/autos", callback);
 
@@ -18,7 +17,6 @@ window.onload = function()
     {
         contenedor.hidden = true;
     }
-
 
     var btnAgregar = document.getElementById("btnAgregar");
     btnAgregar.onclick = function()
@@ -34,11 +32,13 @@ window.onload = function()
             peticion('POST', "http://localhost:3000/nuevoAuto", callbackAgregar);
         }
     }
-    
 
-    
+    var btnModificar = document.getElementById("btnModificar");
+    btnModificar.onclick = function()
+    {
+        peticion('POST', "http://localhost:3000/editarYear" , callbackModificar);
 
-
+    }
 }
 
 function peticion(metodo, url, funcion)
@@ -57,9 +57,9 @@ function peticion(metodo, url, funcion)
         {            
             var data;
             http.setRequestHeader("Content-Type","application/json");
-            if(url == "http://localhost:3000/eliminar")
+            if(url == "http://localhost:3000/editarYear")
             {
-                data = {id:idObtenido};
+                data = {"id":idObtenido, "year": document.getElementById("año").value};
             }
             else if(url == "http://localhost:3000/nuevoAuto")
             {
@@ -92,8 +92,7 @@ function callbackAgregar()
 
 function agregar(auto)
 {
-    var tabla = document.getElementById("table");
-    
+    var tabla = document.getElementById("table");    
         var tr= document.createElement("tr");
         
         var tdId= document.createElement("td");
@@ -104,7 +103,6 @@ function agregar(auto)
        
         var tdNa= document.createElement("td");
         var txt=document.createTextNode(auto.make);
-        //console.log(txt);
         tdNa.appendChild(txt);
         tr.appendChild(tdNa);
 
@@ -129,22 +127,14 @@ function agregar(auto)
         }        
         tr.appendChild(tdAño);
         select.addEventListener("change", cambioAño);
-
-
-
-        tabla.appendChild(tr);   
-
+        tabla.appendChild(tr);  
 }
 
-
-
-
-
-function callbackEditar()
+function callbackModificar()
 {
     if(http.status == 200 && http.readyState ==4)
     {
-        if( (JSON.parse(http.responseText)).type == "ok" )
+        if((JSON.parse(http.responseText)).type == "ok" )
         {
             modificar();
         } 
@@ -154,7 +144,6 @@ function callbackEditar()
         } 
         loading.hidden = true;
     }
-
 }
 
 function cargarGrilla(materias)
@@ -204,61 +193,27 @@ function cargarGrilla(materias)
     }
 }
 
-function cambioAño()
-{
-    contenedor.hidden = false;
-
-}
-
 function modificar()
 {
     var hijo = trPadre.childNodes;
-
-    hijo[1].textContent = document.getElementById("nombre").value;
-    hijo[2].textContent = document.getElementById("cuatrimestre").value;
-
-    var fecha= (document.getElementById("fecha").value).split('-');
-    var fechaCorrecta= fecha[2]+'/'+fecha[1]+'/'+fecha[0];
-    hijo [3].textContent=  fechaCorrecta;
-    
-    //hijo[3].textContent = document.getElementById("fecha").value;
-
-    if((document.getElementById("turMa").checked))
-    {
-        hijo[4].textContent = document.getElementById("turMa").value;
-    }
-    else if((hijo[4].textContent) == "Noche")
-    {
-        document.getElementById("turNo").checked =true;
-    } 
-
-
+    hijo[1].textContent = document.getElementById("marca").value;
+    hijo[2].textContent = document.getElementById("modelo").value;
+    hijo[3].textContent = document.getElementById("año").value;
 }
 
-function clickGrilla(click)
+function cambioAño(click)
 {
     contenedor.hidden = false;
-    trPadre = click.target.parentNode;
+    td = click.target.parentNode;
+    trPadre = td.parentElement;
+
     var hijo = trPadre.childNodes;
 
     idObtenido = hijo[0].textContent;
-    document.getElementById("nombre").value = hijo[1].textContent;
-    document.getElementById("cuatrimestre").value =hijo[2].textContent; 
-    document.getElementById("cuatrimestre").disabled=true;
-
-    var fecha= (hijo [3].textContent).split('/');
-    var fechaCorrecta= fecha[2]+'-'+fecha[1]+'-'+fecha[0];
-    document.getElementById("fecha").value = fechaCorrecta;
-
-    if((hijo[4].textContent) == "Mañana")
-    {
-        document.getElementById("turMa").checked =true;
-
-    }
-    else if((hijo[4].textContent) == "Noche")
-    {
-        document.getElementById("turNo").checked =true;
-    }    
+    document.getElementById("marca").value = hijo[1].textContent;
+    document.getElementById("modelo").value =hijo[2].textContent; 
+    document.getElementById("año").value=hijo[3].textContent;
+       
 }
 
 function chequearDatos()
